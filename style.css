@@ -1,0 +1,194 @@
+:root {
+  --font-color: 30, 30, 30;
+  --body-color: 53, 54, 58;
+
+  --theme-primary: 60, 64, 67;
+  --theme-dark: 60, 64, 67;
+  --theme-dark-hover: 41, 43, 45;
+}
+
+main {
+  margin: 0 auto;
+  width: 100vw
+}
+
+.component {
+  display: none;
+  color: white;
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+}
+
+.component.active {
+  display: block;
+}
+
+body {
+  background-color: rgb(var(--body-color));
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#nav-toggle {
+  height: 5rem;
+  width: 5rem;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem;
+  cursor: pointer;
+  border: none;
+  background-image: url(assets/navmenu.png);
+  background-size: contain;
+  background-color: var(--body-color);
+  z-index: 2;
+}
+
+#nav-toggle-layer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+#nav-wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  transition: backdrop-filter 250ms ease;
+}
+
+#main[data-nav="true"] > #nav-wrapper {
+  backdrop-filter: blur(0.25rem);
+  pointer-events: all;
+}
+
+#nav {
+  background-color: rgb(var(--theme-primary));
+  box-shadow: 0rem 0rem 1rem 0.25rem rgba(0 0 0 / 40%);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  height: fit-content;
+  width: 57.5%;
+  max-width: fit-content;
+  margin-top: 1.25%;
+  position: relative;
+  z-index: 3;
+  transform: translateX(-100%);
+  transition: transform 250ms ease;
+}
+
+#main[data-nav="true"] > #nav-wrapper > #nav {
+  transform: translateX(0%);
+}
+
+#nav > .nav-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#nav > .nav-content > .nav-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#nav > .nav-content > .nav-header > img {
+  height: 3.5rem;
+}
+
+#nav > .nav-content > .nav-header > .nav-greeting {
+  flex-grow: 1;
+  font-size: 3.5rem;
+  color: white;  
+  cursor: pointer;
+  margin: auto;
+}
+
+#nav > .nav-content > .nav-header > button {
+  width: 5rem;
+  height: 5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin: 1.25rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-image: url(assets/closenav.png);
+  background-size: contain;
+  background-color: var(--theme-primary);
+}
+
+#nav > .nav-content > .nav-header > button:hover,
+#nav > .nav-content > .nav-header > button:focus {
+  background-color: rgba(255 255 255 / 15%);
+}
+
+#nav > .nav-content > .nav-header > button > i {
+  color: white;
+  font-size: 1.25rem;
+}
+
+#nav > .nav-content .nav-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#nav > .nav-content .nav-options > .nav-option {
+  width: 92.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgb(var(--theme-dark));
+  border-radius: 0.25rem;
+  outline: none;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border: none;
+}
+
+#nav > .nav-content .nav-options > .nav-option:hover,
+#nav > .nav-content .nav-options > .nav-option:focus {
+  background-color: rgb(var(--theme-dark-hover));
+}
+
+#nav > .nav-content .nav-options > .nav-option > i {
+  color: white;
+  font-size: 2.8rem;
+}
+
+#nav > .nav-content .nav-options > .nav-option > span {
+  color: white;
+  font-size: 2rem;
+}
+
+#nav > .nav-content > .nav-section >.nav-personalinfo {
+  width: 92.5%;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  background-color: rgb(var(--theme-dark));
+  border-radius: 0.25rem;
+  outline: none;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border: none;
+}
+
+#nav > .nav-content > .nav-section >.nav-personalinfo > a {
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+}

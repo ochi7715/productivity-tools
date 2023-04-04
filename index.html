@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Productivity Manager</title>
+</head>
+
+<body>
+  <header>
+    <title>Productivity Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/stopwatch.css">
+    <link rel="stylesheet" href="styles/alarm.css">
+    <link rel="stylesheet" href="styles/pomodoro.css">
+    <link rel="stylesheet" href="styles/timer.css">
+    <link rel="stylesheet" href="styles/calendar.css">
+    <link rel="stylesheet" href="styles/worldClock.css">
+    <link rel="stylesheet" href="styles/todoList.css">
+    <audio id="timersound" src="assets/timersound.mp3" preload="auto"></audio>
+  </header>
+
+  <div id="main" data-nav="true">
+    <button id="nav-toggle" type="button" onclick="toggleNav()"></button>
+    <div id="nav-wrapper">
+      <div id="nav-toggle-layer" onclick="toggleNav()"></div>
+      <div id="nav">
+        <div class="nav-content">
+          <div class="nav-header">
+            <img src="assets/oclogo.png" alt="Logo" />
+            <h2 class="nav-greeting">Options</h2>
+            <button type="button" onclick="toggleNav()">
+              <i class="fa-regular fa-xmark"></i>
+            </button>
+          </div>
+          <div class="nav-section">
+            <div class="nav-options">
+              <button class="nav-option" id="worldclock-tab" href="#">
+                <i class="fa-solid fa-calendar"></i>
+                <span>World Clock</span>
+              </button>
+              </button>
+              <button class="nav-option" id="alarm-tab" href="#">
+                <i class="fa-solid fa-todolist"></i>
+                <span>Alarm</span>
+              </button>
+              <button class="nav-option" id="timer-tab" href="#">
+                <i class="fa-solid fa-todolist"></i>
+                <span>Timer</span>
+              </button>
+              <button class="nav-option" id="pomodoro-tab" href="#">
+                <i class="fa-solid fa-todolist"></i>
+                <span>Pomodoro Timer</span>
+              </button>
+              <button class="nav-option" id="stopwatch-tab" href="#">
+                <i class="fa-solid fa-todolist"></i>
+                <span>Stopwatch</span>
+              </button>
+              <button class="nav-option" id="calendar-tab" href="#">
+                <i class="fa-regular fa-clocks"></i>
+                <span>Calendar</span>
+              </button>
+              <button class="nav-option" id="todo-list-tab" href="#">
+                <i class="fa-solid others"></i>
+                <span>To-Do List</span>
+              </button>
+            </div>
+          </div>
+          <div class="nav-section">
+            <div class="nav-personalinfo">
+              <a href="https://github.com/ochi7715">------ Oscar Chi ------ Made 2023 ------</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- World Clock Module -->
+    <div class="component active" id="worldclock-component">
+      <div id="worldClock">
+        <div class="clock-container">
+          <div class="worldClock">
+            <span class="time"></span><br>
+            <span class="date"></span>
+          </div>
+        </div>
+      </div>
+      <div class="timeZoneSelector">
+        <label for="time-zone">Time Zone:</label>
+        <select id="time-zone">
+          <option value="America/Los_Angeles">PST</option>
+          <option value="America/New_York">EST</option>
+          <option value="Europe/Berlin">CET</option>
+          <option value="Asia/Tokyo">JST</option>
+          <option value="Australia/Sydney">AEDT</option>
+          <option value="Pacific/Auckland">NZDT</option>
+          <option value="America/Chicago">CST</option>
+        </select>
+      </div>
+    </div>
+    <!-- Timer Module -->
+    <div class="component" id="timer-component">
+      <div id="timer">
+        <span id="timerTitle">Timer</span>
+        <div class="timerClock">00:10:00</div>
+        <div id="timerControls">
+          <button class="timerStartStopBtn">Start</button>
+          <button class="timerResetBtn">Reset</button>
+        </div>
+        <div id="timerSettingsBtn">Settings</div>
+        <div class="timerModal" id="timerModal">
+          <div class="timerModal-content">
+            <div class="timer-selector">
+              <label for="timerLength">Timer Length</label> <br>
+              <input type="number" id="timerHourLength" min="0" max="23" step="1" value="0" required>
+              <span>hours</span><br>
+              <input type="number" id="timerMinuteLength" min="0" max="60" step="1" value="10" required>
+              <span>minutes</span><br>
+              <input type="number" id="timerSecondsLength" min="0" max="60" step="1" value="0" required>
+              <span>seconds</span>
+            </div>
+            <div class="timerModal-controls">
+              <button class="timerModal-saveBtn">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Stopwatch Module -->
+    <div class="component" id="stopwatch-component">
+      <div id="stopwatch">
+        <span id="stopwatchTitle">Stopwatch</span>
+        <div class="stopwatchClock">00:00:00</div>
+        <div id="stopwatchControls">
+          <button class="stopwatchStartStopBtn">Start</button>
+          <button class="stopwatchResetBtn">Reset</button>
+        </div>
+      </div>
+    </div>
+    <!-- Alarm Module -->
+    <div class="component" id="alarm-component">
+      <div id="alarm">
+        <h2 id="alarmLabel">Alarm List</h2>
+        <div class="alarmList"></div>
+        <div id="alarmToggleSwitch"></div>
+        <div id="alarms">
+          <!-- Added Alarms go here-->
+        </div>
+        <br>
+        <div class="addAlarm">
+          <button id="addAlarmBtn"></button>
+        </div>
+        <!-- Alarm Modal -->
+        <div id="alarmModal">
+          <form id="alarmForm">
+            <label for="alarmTimeInput">Alarm Time:</label>
+            <input type="time" id="alarmTimeInput">
+            <label for="alarmNotesInput">Notes:</label>
+            <input type="text" id="alarmNotesInput" maxlength="50" ;>
+            <br>
+            <div class="repeatSelector">
+              <label class="alarmRepeatLabel" for="repeatWeekInput">Repeat Every:</label>
+              <input type="radio" id="repeatNoneInput" name="repeat" value="none" checked>
+              <label class="alarmRepeatLabel" for="repeatNoneInput">None</label>
+              <input type="radio" id="repeatWeekInput" name="repeat" value="week">
+              <label class="alarmRepeatLabel" for="repeatWeekInput">Week</label>
+              <input type="radio" id="repeatDayInput" name="repeat" value="day">
+              <label class="alarmRepeatLabel" for="repeatDayInput">Day</label>
+              <input type="radio" id="repeatMonthInput" name="repeat" value="month">
+              <label for="repeatMonthInput">Month</label>
+            </div>
+            <div class="alarmModal-controls">
+              <button class="alarmModal-saveBtn" type="submit"> Save</button>
+              <button class="alarmModal-cancelBtn" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Pomodoro Timer Module -->
+    <div class="component" id="pomodoro-component">
+      <div id="pomodoroTimer">
+        <div id="pomodoroClockLabel">Work</div>
+        <div class="pomodoroClock">25:00</div>
+        <div class="pomodoroControls">
+          <button id="pomodoroStartStopBtn">Start</button>
+          <button id="pomodoroResetBtn">Reset</button>
+        </div>
+        <div id="pomodoroSettingsBtn">Settings</div>
+        <div class="pomodoroModal" id="pomodoroModal">
+          <div class="pomodoroModal-content">
+            <div class="pomodoroSettings">
+              <label for="pomodoroWorkLength">Work Length:</label> <br>
+              <input type="number" id="pomodoroWorkLength" min="1" max="60" step="1" value="25" required>
+              <span>minutes</span>
+              <br>
+              <label for="pomodoroBreakLength">Break Length:</label> <br>
+              <input type="number" id="pomodoroBreakLength" min="1" max="60" step="1" value="5" required>
+              <span>minutes</span>
+            </div>
+          </div>
+          <div class="pomodoroModal-controls">
+            <button class="pomodoroModal-saveBtn">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Calendar -->
+    <div class="component" id="calendar-component">
+      <div class="calendar">
+        <div class="calendar-header">
+          <h2 id="calendar-header">Calendar</h2>
+        </div>
+        <div id="month-controls">
+          <button id="prev-month-btn">Prev</button>
+          <button id="next-month-btn">Next</button>
+        </div>
+        <div id="calendargrid"></div>
+        <div id="event-form" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Event</h2>
+            <form id="event-form-data">
+              <label for="event-name">Name:</label>
+              <input type="text" id="event-name" name="event-name" required>
+              <label for="event-date">Date:</label>
+              <input type="date" id="event-date" name="event-date" required>
+              <label for="event-start-time">Start Time:</label>
+              <input type="time" id="event-start-time" name="event-start-time" required>
+              <label for="event-end-time">End Time:</label>
+              <input type="time" id="event-end-time" name="event-end-time" required>
+              <label for="event-repeat">Repeat?</label>
+              <select id="event-repeat" name="event-repeat">
+                <option value="">No Repeat</option>
+                <option value="week">Every Week</option>
+                <option value="day">Every Day</option>
+                <option value="month">Every Month</option>
+              </select>
+              <label for="event-notes">Additional Notes:</label>
+              <textarea id="event-notes" name="event-notes"></textarea>
+              <input type="submit" value="Add">
+            </form>
+          </div>
+        </div>
+        <button id="add-event-btn">Add Event</button>
+      </div>
+    </div>
+    <!-- To-Do List-->
+    <div class="component" id="todo-list-component">
+      <div class="todo">
+        <h2 id="todo-list-header"> To Do List</h2>
+        <div>
+          <form id="new-task-form">
+            <input type="text" name="new-task-input" id="new-task-input" placeholder="What do you have planned?" />
+            <input type="submit" id="new-task-submit" value="Add task" />
+          </form>
+        </div>
+        <div>
+          <section class="task-list">
+            <h2>Current Tasks</h2>
+            <div id="tasks">
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="index.js"></script>
+  <script src="scripts/helper.js"></script>
+  <script src="scripts/worldclock.js"></script>
+  <script src="scripts/stopwatch.js"></script>
+  <script src="scripts/timer.js"></script>
+  <script src="scripts/pomodoro.js"></script>
+  <script src="scripts/alarm.js"></script>
+  <script src="scripts/todo.js"></script>
+  <script src="scripts/calendar.js"></script>
+</body>
+
+</html>
